@@ -1,6 +1,10 @@
 import React, { forwardRef, useMemo, useCallback } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { BottomSheetModal, BottomSheetBackdrop } from "@gorhom/bottom-sheet";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  BottomSheetModal,
+  BottomSheetBackdrop,
+  useBottomSheetModal,
+} from "@gorhom/bottom-sheet";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 
@@ -18,18 +22,28 @@ const ButtomSheet = forwardRef<Ref>((props, reference) => {
     ),
     []
   );
+  const { dismiss } = useBottomSheetModal();
   return (
     <BottomSheetModal
       snapPoints={snapPoints}
       ref={reference}
       backdropComponent={renderBackDrop}
     >
+      <View style={styles.toggle}>
+        <TouchableOpacity style={styles.toggleActive}>
+          <Text style={styles.activeText}>Delivery</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.toggleInactive}>
+          <Text style={styles.inactiveText}>Pickup</Text>
+        </TouchableOpacity>
+      </View>
+
       <View style={styles.container}>
         <View>
-          <Text style={styles.title}>Your location</Text>
+          <Text style={styles.title}>Tu ubicación</Text>
           <View style={styles.section}>
             <Ionicons name="location-outline" color={Colors.medium} size={25} />
-            <Text style={styles.subtitle}>London</Text>
+            <Text style={styles.subtitle}>Bogotá</Text>
             <Ionicons
               name="chevron-forward-outline"
               color={Colors.primary}
@@ -38,14 +52,22 @@ const ButtomSheet = forwardRef<Ref>((props, reference) => {
           </View>
         </View>
         <View>
-          <Text></Text>
-          <View>
-            <Ionicons></Ionicons>
-            <Text></Text>
-            <Ionicons></Ionicons>
+          <Text style={styles.title}> Tiempo de entrega</Text>
+          <View style={styles.section}>
+            <Ionicons name="time-outline" color={Colors.medium} size={25} />
+            <Text style={styles.subtitle}>Ahora</Text>
+            <Ionicons
+              name="chevron-forward-outline"
+              color={Colors.primary}
+              size={31}
+            />
           </View>
         </View>
       </View>
+
+      <TouchableOpacity style={styles.button} onPress={() => dismiss()}>
+        <Text style={styles.buttonText}>Confirmar</Text>
+      </TouchableOpacity>
     </BottomSheetModal>
   );
 });
@@ -74,6 +96,45 @@ const styles = StyleSheet.create({
     flex: 1,
     color: Colors.medium,
     fontSize: 16,
+  },
+  button: {
+    padding: 15,
+    marginHorizontal: 20,
+    marginVertical: 30,
+    borderRadius: 4,
+    backgroundColor: Colors.primary,
+  },
+  buttonText: {
+    textAlign: "center",
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  toggle: {
+    flexDirection: "row",
+    gap: 10,
+    justifyContent: "center",
+    paddingVertical: 18,
+    alignItems: "center",
+  },
+  toggleActive: {
+    backgroundColor: Colors.primary,
+    paddingVertical: 8,
+    paddingHorizontal: 30,
+    borderRadius: 20,
+  },
+  toggleInactive: {
+    paddingVertical: 8,
+    paddingHorizontal: 30,
+    borderRadius: 20,
+  },
+  activeText: {
+    color: "#fff",
+    fontWeight: "700",
+  },
+  inactiveText: {
+    color: Colors.primary,
+    fontWeight: "700",
   },
 });
 export default ButtomSheet;

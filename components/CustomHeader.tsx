@@ -25,7 +25,7 @@ const SearchBar = () => {
             style={styles.input}
           />
         </View>
-        <Link href={"/"} asChild>
+        <Link href={"/(modal)/filter"} asChild>
           <TouchableOpacity style={styles.optionButton}>
             <Ionicons name="options-outline" size={20} color={Colors.primary} />
           </TouchableOpacity>
@@ -47,17 +47,17 @@ const CustomHeader = () => {
       <View style={styles.container}>
         <TouchableOpacity onPress={openModal}>
           <Image
-            source={require("../assets/images/bike.png")}
+            source={require("../assets/images/delivery.png")}
             style={styles.image}
           />
         </TouchableOpacity>
 
         <View style={styles.titleContainer}>
           <TouchableOpacity onPress={openModal}>
-            <Text style={styles.title}>Delivery • Now</Text>
+            <Text style={styles.title}>Punto de entrega</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.locationName} onPress={openModal}>
-            <Text style={styles.subtitle}>London</Text>
+            <Text style={styles.subtitle}>Bogotá</Text>
             <Ionicons name="chevron-down" size={20} color={Colors.primary} />
           </TouchableOpacity>
         </View>
