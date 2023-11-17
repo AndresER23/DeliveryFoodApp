@@ -1,0 +1,58 @@
+[
+    {
+        "name" : "Papa",
+        "amount" : 4
+    },
+    {
+        "name" : "Lechuga",
+        "amount" : 3
+    },
+    {
+        "name" : "Cebolla",
+        "amount" : 4
+    },
+    {
+        "name" : "Aguacate",
+        "amount" : 2
+    },
+    {
+        "name" : "Fresa",
+        "amount" : 1
+    },
+    {
+        "name" : "Mora",
+        "amount" : 1
+    },
+    {
+        "name" : "Lulo",
+        "amount" : 2
+    },
+    {
+        "name" : "Yuca",
+        "amount" : 2
+    },
+    {
+        "name" : "Zanahoria",
+        "amount" : 3
+    },
+    {
+        "name" : "Cilantro",
+        "amount" : 1
+    },
+    {
+        "name" : "Tomate",
+        "amount" : 2
+    },
+    {
+        "name" : "Limon",
+        "amount" : 3
+    },
+    {
+        "name" : "Banano",
+        "amount" : 1
+    },
+    {
+        "name" : "Papaya",
+        "amount" : 3
+    }
+]
