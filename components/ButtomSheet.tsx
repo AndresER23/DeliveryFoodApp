@@ -41,7 +41,7 @@ const ButtomSheet = forwardRef<Ref>((props, reference) => {
       <View style={styles.container}>
         <View>
           <Text style={styles.title}>Tu ubicación</Text>
-          <View style={styles.section}>
+          <TouchableOpacity style={styles.section}>
             <Ionicons name="location-outline" color={Colors.medium} size={25} />
             <Text style={styles.subtitle}>Bogotá</Text>
             <Ionicons
@@ -49,11 +49,11 @@ const ButtomSheet = forwardRef<Ref>((props, reference) => {
               color={Colors.primary}
               size={31}
             ></Ionicons>
-          </View>
+          </TouchableOpacity>
         </View>
         <View>
           <Text style={styles.title}> Tiempo de entrega</Text>
-          <View style={styles.section}>
+          <TouchableOpacity style={styles.section}>
             <Ionicons name="time-outline" color={Colors.medium} size={25} />
             <Text style={styles.subtitle}>Ahora</Text>
             <Ionicons
@@ -61,7 +61,7 @@ const ButtomSheet = forwardRef<Ref>((props, reference) => {
               color={Colors.primary}
               size={31}
             />
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderTopColor: Colors.grey,
     borderBottomColor: Colors.grey,
-
     gap: 10,
   },
   title: {
