@@ -5,15 +5,17 @@ import {
   TouchableOpacity,
   ListRenderItem,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Colors from "@/constants/Colors";
 import objProperties from "@/constants/objProperties";
 import categories from "@/assets/data/categories.json";
 import { useNavigation } from "expo-router";
 import { FlatList } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 interface Category {
+  key: number;
   name: string;
   amount: number;
   checked?: boolean;
@@ -21,13 +23,48 @@ interface Category {
 
 const Filter = () => {
   const navigation = useNavigation();
+  const [items, setItems] = useState<Category[]>(categories);
 
-  const renderItem: ListRenderItem<Category> = ({ item }) => {
+  const handleClear = () => {
+    const updatedItems = items.map((el) => {
+      el.checked = false;
+      return el;
+    });
+    setItems(updatedItems);
+  };
+
+  const renderItem: ListRenderItem<Category> = ({ item, index }) => {
     return (
       <View style={styles.itemContainer}>
-        <Text>
-          {item.name} <Text style={styles.amount}>({item.amount})</Text>
-        </Text>
+        <TouchableOpacity style={styles.infoCategory}>
+          <Text>
+            {item.name} <Text style={styles.amount}>({item.amount})</Text>
+          </Text>
+        </TouchableOpacity>
+        <BouncyCheckbox
+          disableBuiltInState
+          fillColor={Colors.primary}
+          unfillColor="#fff"
+          innerIconStyle={{ borderColor: Colors.primary, borderRadius: 4 }}
+          iconStyle={{ borderColor: Colors.primary, borderRadius: 4 }}
+          isChecked={items[index].checked}
+          onPress={() => {
+            const isChecked = items[index].checked;
+
+            const updatedItems = items.map((item) => {
+              if (item.key == items[index].key) {
+                item.checked = !isChecked;
+              }
+              return item;
+            });
+
+            setItems(updatedItems);
+          }}
+          style={{
+            borderBottomWidth: 1,
+            borderColor: Colors.grey,
+          }}
+        />
       </View>
     );
   };
@@ -35,7 +72,7 @@ const Filter = () => {
   return (
     <View style={styles.container}>
       <View style={styles.sortContainer}>
-        <View style={styles.section}>
+        <TouchableOpacity style={styles.section}>
           <Ionicons
             name="arrow-down-outline"
             size={20}
@@ -47,9 +84,9 @@ const Filter = () => {
             color={Colors.primary}
             size={31}
           />
-        </View>
+        </TouchableOpacity>
 
-        <View style={styles.section}>
+        <TouchableOpacity style={styles.section}>
           <Ionicons
             name="nutrition-outline"
             size={20}
@@ -61,9 +98,9 @@ const Filter = () => {
             color={Colors.primary}
             size={31}
           />
-        </View>
+        </TouchableOpacity>
 
-        <View style={styles.section}>
+        <TouchableOpacity style={styles.section}>
           <Ionicons
             name="pricetag-outline"
             size={20}
@@ -75,9 +112,9 @@ const Filter = () => {
             color={Colors.primary}
             size={31}
           />
-        </View>
+        </TouchableOpacity>
 
-        <View style={styles.section}>
+        <TouchableOpacity style={styles.section}>
           <Ionicons
             name="flame-outline"
             size={20}
@@ -89,12 +126,17 @@ const Filter = () => {
             color={Colors.primary}
             size={31}
           />
-        </View>
+        </TouchableOpacity>
       </View>
 
-      <View>
-        <Text style={styles.title}>Productos</Text>
-        <FlatList data={categories} renderItem={renderItem} />
+      <View style={{ height: "53%", paddingHorizontal: 25 }}>
+        <View style={styles.categoriesHeader}>
+          <Text style={styles.title}>Productos</Text>
+          <TouchableOpacity onPress={() => handleClear()}>
+            <Text style={styles.clearAll}>Limpiar todo</Text>
+          </TouchableOpacity>
+        </View>
+        <FlatList data={items} renderItem={renderItem} scrollEnabled={true} />
       </View>
 
       <View style={styles.footer}>
@@ -112,11 +154,17 @@ const Filter = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 25,
     backgroundColor: Colors.ligthGrey,
   },
   sortContainer: {
     marginBottom: 20,
+  },
+  categoriesHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  clearAll: {
+    color: Colors.medium,
   },
   footer: {
     position: "absolute",
@@ -142,6 +190,7 @@ const styles = StyleSheet.create({
   },
   section: {
     padding: 10,
+    paddingHorizontal: 25,
     backgroundColor: "#fff",
     borderBottomWidth: 1,
     borderTopColor: Colors.grey,
@@ -162,7 +211,12 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     flexDirection: "row",
-    paddingVertical: 10,
+    justifyContent: "space-between",
+  },
+  infoCategory: {
+    flex: 1,
+    flexDirection: "row",
+    paddingVertical: 12,
     borderBottomWidth: 1,
     borderColor: Colors.grey,
   },
